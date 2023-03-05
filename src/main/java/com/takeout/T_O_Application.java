@@ -11,6 +11,5 @@ public class T_O_Application {
     public static void main(String[] args) {
         SpringApplication.run(T_O_Application.class, args);
         log.info("Starting succeed ...");
-
     }
 }
