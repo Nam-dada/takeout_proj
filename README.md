@@ -20,4 +20,18 @@
 
 配置`WebMvcConfig`的时候遇到了加载不到静态资源的bug，解决方案是`extends WebMvcConfigurationSupport`改成`implements WebMvcConfigurer`，同时内部的方法改成public。
 
+虽然我也是冈巴拉奈特（x）但是今天已经12：30了，要day4力但是还在day3的视频，开摆！
+
+## day4
+对所有table里的数据所共有的字段（公共字段）进行了自动填充处理，避免代码出现过多重复的语句。
+
+在`MyMetaObjecthandler`里实现（implements）了`MetaObjectHandler`来完成的，重写了insert和update两种方法。
+
+由于在当前类里面不能动态的直接获取到用户的id等信息（这些信息存在于HttpSession里），因此我们使用`ThreadLocal`来解决此问题。
+
+`ThreadLocal`会为每个使用它所维护的变量的线程提供独立的一个该变量的副本，该变量副本可以修改，在线程内可访问，线程外不可访问，进行了一个线程隔离。
+
+测试可知`LoginCheckFilter`,`Employee Controller`和`MyMetaObjecthandler`在一次请求中会在一个线程内先后进行调用，因此我们考虑在`LoginCheckFilter`记录下（set）用户的id，然后在`MyMetaObjecthandler`来获取到（get）用户的id。
+
+经测试后通过，公共字段自动填充完成。
 
